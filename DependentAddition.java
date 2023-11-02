@@ -1,34 +1,41 @@
+package org.openjfx;
+
+import java.util.ArrayList;
+
 public class DependentAddition{
 
+	public static ArrayList<DependentAddition> database = new ArrayList();
     private DependentAddition dependent;
     private String name;
     private String dateOfBirth;
     private String address;
-    private int alienNum;
+    private String alienNum;
     private String applicantName; 
-    private int applicantAlienNum;
+    private String applicantAlienNum;
     private String applicantEmail;
 
   
 
-    private DependentAddition(String name, String dateOfBirth, String address, int alienNum, 
-                                String applicantName, int applicantAlienNum, String applicantEmail)
+    private DependentAddition(String name, String dateOfBirth, String address, String alienNum, 
+                                String applicantName, String applicantAlienNum, String applicantEmail)
     {
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.address = address;
         this.alienNum = alienNum;
         this.applicantName = applicantName;
-        this.applicantAlienNum = applicantAlienNum;
+        this.applicantAlienNum = applicantAlienNum; 
         this.applicantEmail = applicantEmail;
     }
 
     private DependentAddition(){}
 
-    public static DependentAddition dependentCreation(String name, String dateOfBirth, String address, int alienNum, 
-                                    String applicantName, int applicantAlienNum, String applicantEmail)
+    public static DependentAddition dependentCreation(String name, String dateOfBirth, String address, String alienNum, 
+                                    String applicantName, String applicantAlienNum, String applicantEmail)
     {
-                return new DependentAddition(name, dateOfBirth, address, alienNum,applicantName,applicantAlienNum,applicantEmail);                                   
+    	DependentAddition dep = new DependentAddition(name, dateOfBirth, address, alienNum,applicantName,applicantAlienNum,applicantEmail);                          
+    	database.add(dep);
+    	return dep;                                
     }
 
     /*
@@ -65,11 +72,11 @@ public class DependentAddition{
 
     public void setAddress(String address){}
 
-    public void setAlienNum(int alienNum){}
+    public void setAlienNum(String alienNum){}
 
     public void setApplicantName(String applicantName){}
 
-    public void setApplicantAlienNum(int applicantAlienNum){}
+    public void setApplicantAlienNum(String applicantAlienNum){}
 
     public void setApplicantEmail(String applicantEmail){}
 
@@ -87,16 +94,16 @@ public class DependentAddition{
         return "";
     }
 
-    public int getAlienNum(){
-        return -1;
+    public String getAlienNum(){
+        return "";
     }
 
     public String getApplicantName(){
         return "";
     }
 
-    public int getApplicantAlienNum(){
-        return -1;
+    public String getApplicantAlienNum(){
+        return "";
     }
 
     public String getApplicantEmail(){
@@ -106,5 +113,10 @@ public class DependentAddition{
     public DependentAddition getDependent(){
         return null;
     }
+    
+    public String toString() {
+    	return "Name: " + name + " DOB: " + dateOfBirth;
+    }
 }
+
 
