@@ -66,48 +66,60 @@ public class DependentAddition{
 
     // Setters
 
-    public void setName(String name){}
+    public void setName(String name){
+	    this.name = name;
+    }
 
-    public void setDateOfBirth(String birthdate){}
+    public void setDateOfBirth(String birthdate){
+	    this.dateOfBirth = birthdate;
+    }
 
-    public void setAddress(String address){}
+    public void setAddress(String address){
+	    this.address = address;
+    }
 
-    public void setAlienNum(String alienNum){}
+    public void setAlienNum(String alienNum){
+	    this.alienNum = alienNum;
+    }
 
-    public void setApplicantName(String applicantName){}
+    public void setApplicantName(String applicantName){
+	    this.applicantName = applicantName;
+    }
 
-    public void setApplicantAlienNum(String applicantAlienNum){}
+    public void setApplicantAlienNum(String applicantAlienNum){
+	    this.applicantAlienNum = applicantAlienNum;
+    }
 
     public void setApplicantEmail(String applicantEmail){}
 
     // Getters
 
     public String getName(){
-        return "";
+        return this.name;
     }
 
     public String getDateOfBirth(){
-        return "";
+        return this.dateOfBirth;
     }
 
     public String getAddress(){
-        return "";
+        return this.address;
     }
 
     public String getAlienNum(){
-        return "";
+        return this.alienNum;
     }
 
     public String getApplicantName(){
-        return "";
+        return this.applicantName;
     }
 
     public String getApplicantAlienNum(){
-        return "";
+        return this.applicantAlienNum;
     }
 
     public String getApplicantEmail(){
-        return "";
+        return this.applicantEmail;
     }
 
     public DependentAddition getDependent(){
