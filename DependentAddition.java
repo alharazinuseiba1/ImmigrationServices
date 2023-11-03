@@ -90,7 +90,9 @@ public class DependentAddition{
 	    this.applicantAlienNum = applicantAlienNum;
     }
 
-    public void setApplicantEmail(String applicantEmail){}
+    public void setApplicantEmail(String applicantEmail){
+	    this.applicantEmail = applicantEmail;
+    }
 
     // Getters
 
