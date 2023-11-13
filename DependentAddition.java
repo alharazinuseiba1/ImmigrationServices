@@ -117,7 +117,6 @@ public class DependentAddition{
     }
 
     // Setters
-
     public void setName(String name){
     	this.name = name;
     }
@@ -144,6 +143,30 @@ public class DependentAddition{
 
     public void setApplicantEmail(String applicantEmail){
     	this.applicantEmail = applicantEmail;
+    }
+
+    public void setDateOfBirth(String birthdate){
+	    this.dateOfBirth = birthdate;
+    }
+
+    public void setAddress(String address){
+	    this.address = address;
+    }
+
+    public void setAlienNum(String alienNum){
+	    this.alienNum = alienNum;
+    }
+
+    public void setApplicantName(String applicantName){
+	    this.applicantName = applicantName;
+    }
+
+    public void setApplicantAlienNum(String applicantAlienNum){
+	    this.applicantAlienNum = applicantAlienNum;
+    }
+
+    public void setApplicantEmail(String applicantEmail){
+	    this.applicantEmail = applicantEmail;
     }
 
     // Getters
