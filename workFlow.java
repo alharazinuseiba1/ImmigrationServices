@@ -1,4 +1,7 @@
+
 package org.openjfx;
+=======
+
 
 import java.util.ArrayList;
 
@@ -14,14 +17,18 @@ public class workFlow {
 	 */
 	private String currentStatus;
 	private String check;
+
 	private ArrayList<Integer> reviewStack;
 	private ArrayList<Integer> approveStack;
+
 	
 	
 	/*
 	 * Constructor initializes class variables
 	 */
+
 	workFlow(String status, ArrayList<Integer> reviewStack, ArrayList<Integer> approveStack) {
+
 		 
 		 this.currentStatus = status;
 		 this.reviewStack = reviewStack;
@@ -51,22 +58,29 @@ public class workFlow {
 	}
 	
 	
+
 	public ArrayList<Integer> getReviewStack(){
+
 		return this.reviewStack;
 	}
 	
 	
+
 	public void setReviewStack(ArrayList<Integer> reviewStack) {
 		this.reviewStack = reviewStack;
 	}
 	
 	
+
 	public ArrayList<Integer> getApproveStack(){
+
 		return this.approveStack;
 	}
 	
 	
+
 	public void setApproveStack(ArrayList<Integer> approveStack) {
+
 		this.approveStack = approveStack;
 	}
 	
@@ -76,13 +90,15 @@ public class workFlow {
 	 * @param alienNumber
 	 * @param x specifies which queue to add to
 	 */
+
 	public void addToWF(int formNumber, String step) {
 		if(step == "Reviewer") {
 			
 			reviewStack.add(formNumber);
-		} else if (step == "Approval") {
+		} 
+    else if (step == "Approval") {
 			approveStack.add(formNumber);
-		}
+    }
 	}
 	
 	/**
@@ -101,6 +117,7 @@ public class workFlow {
 	 * @return id
 	 * @param x specifies from which queue to get next item
 	 */
+
 	public int getNextItem(String step) {
 		int depFormNumber = 0;
 		
@@ -116,7 +133,9 @@ public class workFlow {
 			}
 		}
 		
+
 		return depFormNumber;
+
 	}
 	
 	/**
