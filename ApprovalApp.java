@@ -1,4 +1,4 @@
-package org.openjfx.approver;
+package org.openjfx;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
