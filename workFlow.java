@@ -1,6 +1,5 @@
 
 package org.openjfx;
-=======
 
 
 import java.util.ArrayList;
@@ -27,12 +26,11 @@ public class workFlow {
 	 * Constructor initializes class variables
 	 */
 
-	workFlow(String status, ArrayList<Integer> reviewStack, ArrayList<Integer> approveStack) {
+	workFlow() {
 
 		 
-		 this.currentStatus = status;
-		 this.reviewStack = reviewStack;
-		 this.approveStack = approveStack;
+		 this.reviewStack = new ArrayList<Integer>();
+		 this.approveStack = new ArrayList<Integer>();
 	 }
 	 
 	/*

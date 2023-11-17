@@ -14,7 +14,7 @@ public class DependentAddition{
     private String applicantName; 
     private String applicantAlienNum;
     private String applicantEmail;
-    
+    public static workFlow wf =  new workFlow();
 
   
 
@@ -29,6 +29,8 @@ public class DependentAddition{
         this.applicantAlienNum = applicantAlienNum; 
         this.applicantEmail = applicantEmail;
         this.formNumber = calcFormNumber();
+        wf.addToWF(formNumber, "Reviewer");
+        
     }
 
     private DependentAddition(){}
@@ -117,6 +119,7 @@ public class DependentAddition{
     }
 
     // Setters
+
     public void setName(String name){
     	this.name = name;
     }
@@ -143,30 +146,6 @@ public class DependentAddition{
 
     public void setApplicantEmail(String applicantEmail){
     	this.applicantEmail = applicantEmail;
-    }
-
-    public void setDateOfBirth(String birthdate){
-	    this.dateOfBirth = birthdate;
-    }
-
-    public void setAddress(String address){
-	    this.address = address;
-    }
-
-    public void setAlienNum(String alienNum){
-	    this.alienNum = alienNum;
-    }
-
-    public void setApplicantName(String applicantName){
-	    this.applicantName = applicantName;
-    }
-
-    public void setApplicantAlienNum(String applicantAlienNum){
-	    this.applicantAlienNum = applicantAlienNum;
-    }
-
-    public void setApplicantEmail(String applicantEmail){
-	    this.applicantEmail = applicantEmail;
     }
 
     // Getters
@@ -199,6 +178,9 @@ public class DependentAddition{
         return this.applicantEmail;
     }
 
+    public int getFormNumber() {
+    	return this.formNumber;
+    }
     /*
     public DependentAddition getDependent(){
         return null;
