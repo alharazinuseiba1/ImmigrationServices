@@ -178,6 +178,9 @@ public class DependentAddition{
         return this.applicantEmail;
     }
 
+    public int getFormNumber() {
+    	return this.formNumber;
+    }
     /*
     public DependentAddition getDependent(){
         return null;

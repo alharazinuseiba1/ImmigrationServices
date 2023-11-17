@@ -1,3 +1,4 @@
+package org.openjfx;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -13,7 +14,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.event.EventHandler;
 
-public class ApprovalApp extends Application {
+public class ApprovalApp{
 	//Used to get dependent and immigrant's info
     private DependentAddition selectedDependent;
 
@@ -21,8 +22,7 @@ public class ApprovalApp extends Application {
         this.selectedDependent = dependent;
     }
 
-    @Override
-    public void start(Stage primaryStage) {
+    public void showApproval(Stage primaryStage) {
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.BASELINE_CENTER);
         grid.setHgap(5);
@@ -126,7 +126,5 @@ public class ApprovalApp extends Application {
         
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+   
 }
