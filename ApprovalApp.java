@@ -1,3 +1,4 @@
+package org.openjfx.approver;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -13,16 +14,12 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.event.EventHandler;
 
-public class ApprovalApp extends Application {
+public class ApprovalApp {
 	//Used to get dependent and immigrant's info
     private DependentAddition selectedDependent;
 
-    public void setDependent(DependentAddition dependent) {
-        this.selectedDependent = dependent;
-    }
-
-    @Override
-    public void start(Stage primaryStage) {
+    
+    public void showApproval(Stage stage) {
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.BASELINE_CENTER);
         grid.setHgap(5);
@@ -30,14 +27,17 @@ public class ApprovalApp extends Application {
         grid.setPadding(new Insets(25, 25, 25, 25));
 
         Scene scene = new Scene(grid, 600, 720);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        stage.setScene(scene);
+        stage.show();
 
         Text scenetitle = new Text("Form Approval");
         scenetitle.setFont(Font.font("Verdana", FontWeight.BOLD, 36));
         GridPane.setConstraints(scenetitle, 0, 5);
         grid.getChildren().add(scenetitle);
-
+        
+        int formNum = DependentAddition.wf.getNextItem("Approval");
+        selectedDependent = DependentAddition.getDependentFromDB_FormNumber(formNum);
+        
         displayImmigrantInfo(grid);
         displayDependentInfo(grid);
 
@@ -59,14 +59,15 @@ public class ApprovalApp extends Application {
         GridPane.setConstraints(alienNumLabel, 0, 20);
         grid.getChildren().add(alienNumLabel);
 
-        /* Dependents DB not implemented yet
-        Label nameValueLabel = new Label(selectedDependent.getApplicantName());
-        GridPane.setConstraints(nameValueLabel, 1, 15);
-        grid.getChildren().add(nameValueLabel);
-
-        Label alienNumValueLabel = new Label(selectedDependent.getApplicantAlienNum());
-        GridPane.setConstraints(alienNumValueLabel, 1, 20);
-        grid.getChildren().add(alienNumValueLabel);*/
+        if (selectedDependent != null) {
+	        Label nameValueLabel = new Label(selectedDependent.getApplicantName());
+	        GridPane.setConstraints(nameValueLabel, 1, 15);
+	        grid.getChildren().add(nameValueLabel);
+	
+	        Label alienNumValueLabel = new Label(selectedDependent.getApplicantAlienNum());
+	        GridPane.setConstraints(alienNumValueLabel, 1, 20);
+	        grid.getChildren().add(alienNumValueLabel);
+        }
     }
 
     private void displayDependentInfo(GridPane grid) {
@@ -91,23 +92,24 @@ public class ApprovalApp extends Application {
         GridPane.setConstraints(alienNumLabel, 0, 45);
         grid.getChildren().add(alienNumLabel);
 
-        /* Dependents DB not implemented yet
-        Label nameValueLabel = new Label(selectedDependent.getName());
-        GridPane.setConstraints(nameValueLabel, 1, 30);
-        grid.getChildren().add(nameValueLabel);
-
-        Label dobValueLabel = new Label(selectedDependent.getDateOfBirth());
-        GridPane.setConstraints(dobValueLabel, 1, 35);
-        grid.getChildren().add(dobValueLabel);
-
-        Label addressValueLabel = new Label(selectedDependent.getAddress());
-        GridPane.setConstraints(addressValueLabel, 1, 40);
-        grid.getChildren().add(addressValueLabel);
-
-        Label alienNumValueLabel = new Label(selectedDependent.getAlienNum());
-        GridPane.setConstraints(alienNumValueLabel, 1, 45);
-        grid.getChildren().add(alienNumValueLabel);
-        */
+        if (selectedDependent != null) {
+	        Label nameValueLabel = new Label(selectedDependent.getName());
+	        GridPane.setConstraints(nameValueLabel, 1, 30);
+	        grid.getChildren().add(nameValueLabel);
+	
+	        Label dobValueLabel = new Label(selectedDependent.getDateOfBirth());
+	        GridPane.setConstraints(dobValueLabel, 1, 35);
+	        grid.getChildren().add(dobValueLabel);
+	
+	        Label addressValueLabel = new Label(selectedDependent.getAddress());
+	        GridPane.setConstraints(addressValueLabel, 1, 40);
+	        grid.getChildren().add(addressValueLabel);
+	
+	        Label alienNumValueLabel = new Label(selectedDependent.getAlienNum());
+	        GridPane.setConstraints(alienNumValueLabel, 1, 45);
+	        grid.getChildren().add(alienNumValueLabel);
+        }
+        
     }
 
     private void addButton(GridPane grid, String buttonText, int row, EventHandler<ActionEvent> eventHandler) {
@@ -122,11 +124,12 @@ public class ApprovalApp extends Application {
     }
 
     private void returnForm(ActionEvent event) {
-        // send form to the reviewer screen
+    	DependentAddition.wf.addToWF(selectedDependent.getFormNumber(), "Reviewer");
+    	
+    	ReviewApp obj  = new ReviewApp();
+		obj.showReview(new Stage());
         
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+        
 }
