@@ -1,4 +1,6 @@
-package org.openjfx.approver;
+
+package org.openjfx;
+
 
 import java.util.ArrayList;
 
@@ -14,18 +16,21 @@ public class workFlow {
 	 */
 	private String currentStatus;
 	private String check;
-	private ArrayList<DependentAddition> reviewStack;
-	private ArrayList<DependentAddition> approveStack;
+
+	private ArrayList<Integer> reviewStack;
+	private ArrayList<Integer> approveStack;
+
 	
 	
 	/*
 	 * Constructor initializes class variables
 	 */
-	workFlow(String status, ArrayList<DependentAddition> reviewStack, ArrayList<DependentAddition> approveStack) {
+
+	workFlow() {
+
 		 
-		 this.currentStatus = status;
-		 this.reviewStack = reviewStack;
-		 this.approveStack = approveStack;
+		 this.reviewStack = new ArrayList<Integer>();
+		 this.approveStack = new ArrayList<Integer>();
 	 }
 	 
 	/*
@@ -51,22 +56,29 @@ public class workFlow {
 	}
 	
 	
-	public ArrayList<DependentAddition> getReviewStack(){
+
+	public ArrayList<Integer> getReviewStack(){
+
 		return this.reviewStack;
 	}
 	
 	
-	public void setReviewStack(ArrayList<DependentAddition> reviewStack) {
+
+	public void setReviewStack(ArrayList<Integer> reviewStack) {
 		this.reviewStack = reviewStack;
 	}
 	
 	
-	public ArrayList<DependentAddition> getApproveStack(){
+
+	public ArrayList<Integer> getApproveStack(){
+
 		return this.approveStack;
 	}
 	
 	
-	public void setApproveStack(ArrayList<DependentAddition> approveStack) {
+
+	public void setApproveStack(ArrayList<Integer> approveStack) {
+
 		this.approveStack = approveStack;
 	}
 	
@@ -76,12 +88,15 @@ public class workFlow {
 	 * @param alienNumber
 	 * @param x specifies which queue to add to
 	 */
-	public void addToWF(DependentAddition dependent, int x) {
-		if(x == 1) {
-			reviewStack.add(dependent);
-		} else if (x == 2) {
-			approveStack.add(dependent);
-		}
+
+	public void addToWF(int formNumber, String step) {
+		if(step == "Reviewer") {
+			
+			reviewStack.add(formNumber);
+		} 
+    else if (step == "Approval") {
+			approveStack.add(formNumber);
+    }
 	}
 	
 	/**
@@ -100,22 +115,25 @@ public class workFlow {
 	 * @return id
 	 * @param x specifies from which queue to get next item
 	 */
-	public DependentAddition getNextItem(int x) {
-		DependentAddition dep = null;
+
+	public int getNextItem(String step) {
+		int depFormNumber = 0;
 		
-		if(x == 1) {
+		if(step == "Reviewer") {
 			if (!reviewStack.isEmpty()) {
-				dep = reviewStack.get(0);
+				depFormNumber = reviewStack.get(0);
 				reviewStack.remove(0);
 			}
-		} else if (x == 2) {
+		} else if (step == "Approval") {
 			if (!approveStack.isEmpty()) {
-				dep = approveStack.get(0);
+				depFormNumber = approveStack.get(0);
 				approveStack.remove(0);
 			}
 		}
 		
-		return dep;
+
+		return depFormNumber;
+
 	}
 	
 	/**
