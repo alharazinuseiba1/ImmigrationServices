@@ -43,6 +43,7 @@ public class ApprovalApp {
 
         addButton(grid, "Accept Form", 60, this::acceptForm);
         addButton(grid, "Return Form", 56, this::returnForm);
+        addButton(grid, "Back", 64, this::back);
     }
 
     private void displayImmigrantInfo(GridPane grid) {
@@ -54,10 +55,15 @@ public class ApprovalApp {
         Label nameLabel = new Label("Name:");
         GridPane.setConstraints(nameLabel, 0, 15);
         grid.getChildren().add(nameLabel);
+        
 
         Label alienNumLabel = new Label("Alien Number:");
         GridPane.setConstraints(alienNumLabel, 0, 20);
         grid.getChildren().add(alienNumLabel);
+        
+        Label emailLabel = new Label("Email:");
+        GridPane.setConstraints(emailLabel, 0, 25);
+        grid.getChildren().add(emailLabel);
 
         if (selectedDependent != null) {
 	        Label nameValueLabel = new Label(selectedDependent.getApplicantName());
@@ -67,46 +73,50 @@ public class ApprovalApp {
 	        Label alienNumValueLabel = new Label(selectedDependent.getApplicantAlienNum());
 	        GridPane.setConstraints(alienNumValueLabel, 1, 20);
 	        grid.getChildren().add(alienNumValueLabel);
+	        
+	        Label emailValueLabel = new Label(selectedDependent.getApplicantEmail());
+	        GridPane.setConstraints(emailValueLabel, 1, 25);
+	        grid.getChildren().add(emailValueLabel);
         }
     }
 
     private void displayDependentInfo(GridPane grid) {
         Label dependentLabel = new Label("Dependent Information:");
         dependentLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
-        GridPane.setConstraints(dependentLabel, 0, 25);
+        GridPane.setConstraints(dependentLabel, 0, 30);
         grid.getChildren().add(dependentLabel);
 
         Label nameLabel = new Label("Name:");
-        GridPane.setConstraints(nameLabel, 0, 30);
+        GridPane.setConstraints(nameLabel, 0, 35);
         grid.getChildren().add(nameLabel);
 
         Label dobLabel = new Label("Date of Birth:");
-        GridPane.setConstraints(dobLabel, 0, 35);
+        GridPane.setConstraints(dobLabel, 0, 40);
         grid.getChildren().add(dobLabel);
 
         Label addressLabel = new Label("Address:");
-        GridPane.setConstraints(addressLabel, 0, 40);
+        GridPane.setConstraints(addressLabel, 0, 45);
         grid.getChildren().add(addressLabel);
 
         Label alienNumLabel = new Label("Alien Number:");
-        GridPane.setConstraints(alienNumLabel, 0, 45);
+        GridPane.setConstraints(alienNumLabel, 0, 50);
         grid.getChildren().add(alienNumLabel);
 
         if (selectedDependent != null) {
 	        Label nameValueLabel = new Label(selectedDependent.getName());
-	        GridPane.setConstraints(nameValueLabel, 1, 30);
+	        GridPane.setConstraints(nameValueLabel, 1, 35);
 	        grid.getChildren().add(nameValueLabel);
 	
 	        Label dobValueLabel = new Label(selectedDependent.getDateOfBirth());
-	        GridPane.setConstraints(dobValueLabel, 1, 35);
+	        GridPane.setConstraints(dobValueLabel, 1, 40);
 	        grid.getChildren().add(dobValueLabel);
 	
 	        Label addressValueLabel = new Label(selectedDependent.getAddress());
-	        GridPane.setConstraints(addressValueLabel, 1, 40);
+	        GridPane.setConstraints(addressValueLabel, 1, 45);
 	        grid.getChildren().add(addressValueLabel);
 	
 	        Label alienNumValueLabel = new Label(selectedDependent.getAlienNum());
-	        GridPane.setConstraints(alienNumValueLabel, 1, 45);
+	        GridPane.setConstraints(alienNumValueLabel, 1, 50);
 	        grid.getChildren().add(alienNumValueLabel);
         }
         
@@ -124,11 +134,18 @@ public class ApprovalApp {
     }
 
     private void returnForm(ActionEvent event) {
+    	//send selectedDependent's form back to reviewer
     	DependentAddition.wf.addToWF(selectedDependent.getFormNumber(), "Reviewer");
     	
     	ReviewApp obj  = new ReviewApp();
 		obj.showReview(new Stage());
         
+    }
+    
+    private void back(ActionEvent event) {
+    	//return to home screen
+    	App app = new App();
+		app.start(new Stage());
     }
 
         
