@@ -18,7 +18,7 @@ public class DependentAddition{
 
   
 
-    private DependentAddition(String name, String dateOfBirth, String address, String alienNum, 
+    public DependentAddition(String name, String dateOfBirth, String address, String alienNum, 
                                 String applicantName, String applicantAlienNum, String applicantEmail)
     {
         this.name = name;
@@ -69,6 +69,32 @@ public class DependentAddition{
      * number is an int,applicantAlienNum is an int, and email address is in proper format
      */
     public boolean validateDependent(DependentAddition da){
+    	// alien num and applicant alien num must be convertable to an int
+    	// date of birth should follow the format xx/xx/xxxx
+    	// email must have an @ and a .
+    	String string_num, birthdate;
+    	int alien_num;
+    	try {
+    		// checking that the alien nums can be converted to ints. If an exception occurs, return false
+    		string_num = da.getAlienNum();
+    		alien_num = Integer.parseInt(string_num);
+    		string_num = da.getApplicantAlienNum();
+    		alien_num = Integer.parseInt(string_num);
+    		
+    		// date of birth
+    		birthdate = da.getDateOfBirth();
+    		if((birthdate.length() != 10) || (birthdate.contains("/") == false)) {
+    			return false;
+    		}
+    		if(da.getApplicantEmail().contains("@") == false) {
+    			return false;
+    		}
+    		
+    	}
+    	catch (Exception e) {
+    		return false;
+    		
+    	}
         return true;
     }
 

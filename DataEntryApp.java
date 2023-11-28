@@ -209,20 +209,51 @@ public class DataEntryApp {
     	grid.getChildren().add(label);
     	
     	submit.setOnAction((ActionEvent e) -> {
+        	boolean missing = false;
         	boolean invalid = false;
     	    for(int i = 0; i < grid.getChildren().size(); i++) {
     	    	if(grid.getChildren().get(i).getClass() == TextField.class) {
     	    		TextField value = (TextField)grid.getChildren().get(i);
     	    		if(value.getText() == null || (value.getText().isEmpty() == true)){
-    	    			label.setText("One or more fields are empty");
-    	    			invalid = true;
+    	    			//label.setText("One or more fields are empty");
+    	    			missing = true;
     	    		}
     	    	}
     	    }
-    	    if(!invalid) {
+    	    
+    	    
+    	    try {
+    	    	String dob = ((TextField)grid.getChildren().get(6)).getText();
+    	    	String depAlienNum = ((TextField)grid.getChildren().get(10)).getText();
+    	    	String appAlienNum = ((TextField)grid.getChildren().get(15)).getText();
+    	    	String appEmail = ((TextField)grid.getChildren().get(17)).getText();
+    	    	int alien_num;
+        	    if(dob.length() != 10 || (dob.contains("/") == false))
+        	    	invalid = true;
+        	    alien_num = Integer.parseInt(appAlienNum);
+        	    alien_num = Integer.parseInt(depAlienNum);
+        	    if(appEmail.contains("@") == false)
+        	    	invalid = true;
+        	    
+    	    }
+    	    catch(Exception a) {
+    	    	invalid = true;
+    	    }
+    	    if(invalid && missing)
+    	    	label.setText("Invalid format option for one of the fields, and one of the fields is empty.");
+    	    else if(invalid)
+    	    	label.setText("Invalid format option for one of the fields");
+    	    else if(missing)
+    	    	label.setText("One of more fields are empty");
+    	    else if (!missing && !invalid) {
     	    	label.setText("Thank you for submitting the form!\nAn email will be sent to the applicant upon approval.");
     	    	createDep(grid);
     	    }
+    	    	
+    	    //if(!missing) {
+    	    //	label.setText("Thank you for submitting the form!\nAn email will be sent to the applicant upon approval.");
+    	    //	createDep(grid);
+    	    //}
     	    	
     	});
     	
@@ -262,7 +293,6 @@ public class DataEntryApp {
 	    	}
 	    }
     	//label2.setText(texts);
-    	
     	name = ((TextField)grid.getChildren().get(4)).getText();
     	dob = ((TextField)grid.getChildren().get(6)).getText();
     	address = ((TextField)grid.getChildren().get(8)).getText();
@@ -271,14 +301,15 @@ public class DataEntryApp {
     	appAlienNum = ((TextField)grid.getChildren().get(15)).getText();
     	appEmail = ((TextField)grid.getChildren().get(17)).getText();
     	
-    	DependentAddition dependent = DependentAddition.dependentCreation(name,dob,
+    		DependentAddition dependent = DependentAddition.dependentCreation(name,dob,
     			address,alienNum,appName,appAlienNum,appEmail);
+    	}
     	//label2.setText(DependentAddition.database.toString());
     	//System.out.println("Database\n "+ DependentAddition.database.toString());
     	
     	
     	
-    }
+    
     
    
 }
