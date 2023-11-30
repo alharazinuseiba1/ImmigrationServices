@@ -4,6 +4,7 @@ package org.openjfx;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -109,6 +110,114 @@ public class DependentAdditionTest {
         assertFalse(dependent.validateDependent(dependent));
     }
     
+    
+    
+    /**
+     * Test for if dependent's information was updated due to format issues
+     */
+    @Test
+    public void updateDependentTest1(){
+        DependentAddition da1 = DependentAddition.dependentCreation("T om","09/03/2002","1234 Road",
+                                "1234", "Mary","5678","mary@gmail.com");
+        DependentAddition da2 = DependentAddition.dependentCreation("Tom","09/03/2002","1234 Road",
+                "1234", "Mary","5678","mary@gmail.com");
+        
+        da1.updateDependent(da2);
+        
+        assertTrue(da1.getName() == "Tom");
+    }
+    
+    /**
+     * Test for if dependent's updated information is wrong and was not updated
+     */
+    @Test
+    public void updateDependentTest2(){
+        DependentAddition da1 = DependentAddition.dependentCreation("Tom","09/03/2002","1234 Road",
+                                "kjwnkbrh", "Mary","5678","mary@gmail.com");
+        DependentAddition da2 = DependentAddition.dependentCreation("Tom","09/03/2002","1234 Road",
+                "onetwothreefour", "Mary","5678","mary@gmail.com");
+        
+        da1.updateDependent(da2);
+        
+        assertFalse(da1.getAlienNum()== "onetwothreefour");
+    }
+    
+    /**
+     * Test if a dependent addition form was able to be found and retrieved from the database by its alien number
+     */
+
+    @Test
+    public void getDependentFromDB_AlienNumTest1(){
+    	
+        DependentAddition da1 = DependentAddition.dependentCreation("Tom","09/03/2002","1234 Road",
+                                "1234", "Mary","5678","mary@gmail.com");
+        DependentAddition da2 = DependentAddition.dependentCreation("Will","08/03/2002","4578 Sweet Leaf",
+                "9876", "Sarah","2345","sarah@gmail.com");
+        DependentAddition.saveToDB(da1);
+        DependentAddition.saveToDB(da2);
+        
+        int num = Integer.parseInt(da1.getAlienNum());
+        //System.out.println(da1.getName());
+       // System.out.println(DependentAddition.getDependentFromDB_AlienNum(num).getName());
+        
+        
+        assertEquals(DependentAddition.getDependentFromDB_AlienNum(num).getName(), da1.getName());
+    }
+    
+    
+    /**
+     *  Test if inputting a nonexisitng alien number to get a depedentaddition form will return null
+     */
+    @Test
+    public void getDependentFromDB_AlienNumTest2(){
+    	
+        assertNull(DependentAddition.getDependentFromDB_AlienNum(56987));
+    }
+    
+    
+    /**
+     * Test if a dependent addition form was able to be found and retrieved from the database by its form number
+     */
+    @Test
+    public void getDependentFromDB_FormNumberTest1(){
+    	
+        DependentAddition da1 = DependentAddition.dependentCreation("Tom","09/03/2002","1234 Road",
+                                "1234", "Mary","5678","mary@gmail.com");
+        DependentAddition da2 = DependentAddition.dependentCreation("Will","08/03/2002","4578 Sweet Leaf",
+                "9876", "Sarah","2345","sarah@gmail.com");
+        DependentAddition.saveToDB(da1);
+        DependentAddition.saveToDB(da2);
+        int formnum = da1.getFormNumber();
+        
+        
+        assertEquals(DependentAddition.getDependentFromDB_FormNumber(formnum), da1);
+    }
+    
+    /**
+     * Test if inputting a nonexisitng form number to get a depedentaddition form will return null
+     */
+    @Test
+    public void getDependentFromDB_FormNumberTest2(){
+    	
+        assertNull(DependentAddition.getDependentFromDB_FormNumber(1790));
+    }
+    
+    
+    
+    /*test if the toString method properly outputs the correct data in the right order*/
+    @Test
+    public void toStringTest() {
+    	
+    	DependentAddition da = DependentAddition.dependentCreation("Tom","09/03/2002","1234 Road",
+                "1234", "Mary","5678","mary@gmail.com");
+    	
+    	String result = "Form #" + da.getFormNumber() + " Dependent Name: " + da.getName() +" Dependent DOB: " +da.getDateOfBirth() +" Dependent Address: " + da.getAddress() +" Dependent Alien Number: " + da.getAlienNum() +" Applicant Name: " + da.getApplicantName()+ " Applicant Alien Number: " + da.getApplicantAlienNum()+ " Applicant Email "+ da.getApplicantEmail();
+    	
+    	assertEquals(da.toString(), result);
+    	
+    	
+    }
+    /*test if a dependentAddition object was added to the database*/
     @Test
     public void saveToDBTest(){
         DependentAddition dependent = DependentAddition.dependentCreation("Tom","09/03/2002","1234 Road",
