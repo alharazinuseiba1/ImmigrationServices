@@ -198,7 +198,13 @@ public class ReviewApp {
  	   		label2.setTextFill(Color.RED);
  	   		label2.setFont(Font.font("Verdana", FontWeight.MEDIUM, 13));
  	   		grid.getChildren().add(label2);
-		
+ 	   		
+ 	   		Label label3 = new Label();
+ 	   		GridPane.setConstraints(label3, 21, 42);
+			GridPane.setColumnSpan(label3, 2);
+			label3.setTextFill(Color.RED);
+			label3.setFont(Font.font("Verdana", FontWeight.MEDIUM, 13));
+			grid.getChildren().add(label3);
 		
  	   		submit.setOnAction((ActionEvent e) -> {
 
@@ -212,7 +218,7 @@ public class ReviewApp {
  	   			}
 			
  	   			if(value.isSelected() == true) {
-    			
+    			  
  	   				b1.setAddress(addrField.getText());
  	   				b1.setDateOfBirth(dobField.getText());
  	   				b1.setAlienNum(alienNumField.getText());
@@ -220,12 +226,26 @@ public class ReviewApp {
  	   				b1.setApplicantName(appNameField.getText());
  	   				b1.setApplicantEmail(appEmailField.getText());
  	   				b1.setApplicantAlienNum(appAlienField.getText());
-    	   		
- 	   				label.setVisible(true);
- 	   				label2.setVisible(false);
- 	   				label.setText("Form has been sent for Approval");
- 	   				DependentAddition.wf.addToWF(b1.getFormNumber(), "Approval");
- 	   				//System.out.println("After Edit inside submit on action :" + b1.getDateOfBirth());
+ 	   				
+ 	   				if(b1.validateDependent(b1)== false) {
+ 	   					
+ 	   					label.setVisible(false);
+ 	   					
+ 	   					label3.setVisible(true);
+ 	   					
+ 	   					label3.setText("Error: updated information is invalid, please review again");
+ 	   					
+ 	   					
+ 	   				}
+ 	   				
+ 	   				else {
+ 	   					label3.setVisible(false);
+ 	   					label.setVisible(true);
+ 	   					label2.setVisible(false);
+ 	   					label.setText("Form has been sent for Approval");
+ 	   					DependentAddition.wf.addToWF(b1.getFormNumber(), "Approval");
+ 	   					//System.out.println("After Edit inside submit on action :" + b1.getDateOfBirth());
+ 	   				}
 
  	   			}
  	   		});		
