@@ -17,16 +17,17 @@ import javafx.event.EventHandler;
 public class ApprovalApp {
 	//Used to get dependent and immigrant's info
     private DependentAddition selectedDependent;
-
+    private Stage stage;
     
-    public void showApproval(Stage stage) {
+    public void showApproval(Stage primaryStage) {
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.BASELINE_CENTER);
         grid.setHgap(5);
         grid.setVgap(5);
         grid.setPadding(new Insets(25, 25, 25, 25));
-
+        
         Scene scene = new Scene(grid, 600, 720);
+        stage = primaryStage;
         stage.setScene(scene);
         stage.show();
 
@@ -138,14 +139,14 @@ public class ApprovalApp {
     	DependentAddition.wf.addToWF(selectedDependent.getFormNumber(), "Reviewer");
     	
     	ReviewApp obj  = new ReviewApp();
-		obj.showReview(new Stage());
+		obj.showReview(stage);
         
     }
     
     private void back(ActionEvent event) {
     	//return to home screen
     	App app = new App();
-		app.start(new Stage());
+		app.start(stage);
     }
 
         

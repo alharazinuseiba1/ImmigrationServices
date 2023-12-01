@@ -1,6 +1,11 @@
+package org.openjfx.approver;
+
 import static org.junit.Assert.assertEquals;
+
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -13,7 +18,7 @@ class workFlowTest {
 	 */
 	@Test
 	public void CreateWFObjTest1() {
-        workFlow testobj = new workFlow("", null, null);
+        workFlow testobj = new workFlow();
         assertNotNull(testobj);
     }
 	
@@ -22,85 +27,108 @@ class workFlowTest {
 	 */
 	@Test
 	public void CreateWFObjTest2() {
-        workFlow testobj = new workFlow("", null, null);
+        workFlow testobj = new workFlow();
         assertTrue(testobj instanceof workFlow);
     }
 	
-	/*
-	 * tests if the dependentaddition form is added to the workflow by testing if the current status of the obj is "Data Entry"
-	 */
-	@Test
-	public void addToWFTest1() {
-		
-        workFlow testobj = new workFlow("", null, null);
-		testobj.addToWF(123456789);
-		
-		assertEquals("Data Entry", testobj.getCurrentStatus());
-	}
 	
 	/*
 	 *  tests if the dependentaddition form is added to the workflow by testing if the reviewStack and approveStack is null or not
 	 */
 	@Test
-	public void addToWFTest2() {
+	public void addToWFTest1() {
 		
-        workFlow testobj = new workFlow("", null, null);
-		testobj.addToWF(123456789);
+		DependentAddition da = DependentAddition.dependentCreation("Tom","09/03/2002","1234 Road",
+                "1234", "Mary","5678","mary@gmail.com");
+		
+        workFlow testobj = new workFlow();
+		testobj.addToWF(da.getFormNumber(), "Reviwer");
 	
 		assertNotNull(testobj.getReviewStack());
 		assertNotNull(testobj.getApproveStack());
 	}
 	
+	
 	/*
-	 * tests if the dependentaddition form is added to the workflow by testing if the reviewStack and approveStack has an element or not when calling addToWF()
+	 * tests if the dependentaddition form is added to the workflow by testing if the review stack has a depedendentAddition form
 	 */
+	@Test
+	public void addToWFTest2() {
+		
+		DependentAddition da = DependentAddition.dependentCreation("Tom","09/03/2002","1234 Road",
+                "1234", "Mary","5678","mary@gmail.com");
+		
+        workFlow testobj = new workFlow();
+		testobj.addToWF(da.getFormNumber(), "Reviewer");
+		
+		assertEquals(1, testobj.getReviewStack().size());
+		assertEquals(0, testobj.getApproveStack().size());
+
+	}
+	
+	/*
+	 * tests if the dependentaddition form is added to the next step (approve stack) in workflow if multiple dependentAddition forms need to be approved
+	 */
+	@Test
 	public void addToWFTest3() {
 		
-        workFlow testobj = new workFlow("", null, null);
-		testobj.addToWF(123456789);
-	
-		assertEquals(1, testobj.getReviewStack().size());
-		assertEquals(1, testobj.getApproveStack().size());
+		DependentAddition da1 = DependentAddition.dependentCreation("Tom","09/03/2002","1234 Road",
+                "1234", "Mary","5678","mary@gmail.com");
+		DependentAddition da2 = DependentAddition.dependentCreation("Will","08/03/2002","4578 Sweet Leaf",
+                "9876", "Sarah","2345","sarah@gmail.com");
+		
+        workFlow obj = new workFlow();
+        obj.addToWF(da1.getFormNumber(), "Approval");
+		obj.addToWF(da2.getFormNumber(), "Approval");
 
+		
+		assertEquals(2, obj.getApproveStack().size());
 	}
 	
+	
 	/*
-	 * tests if the current status of the workflow is updated when a workflow step is completed and updateWf() is called 
+	 *  Test adding a form to the review stack
 	 */
 	@Test
-	public void updateWFTest1() {
-		
-		workFlow testobj = new workFlow("", null, null);
-		testobj.addToWF(123456789);
-		testobj.updateWF(123456789, "Data Entry", "complete");
-		
-		assertEquals("Review", testobj.getCurrentStatus());
+	public void addToWFTest4() {    
+	    DependentAddition da = DependentAddition.dependentCreation("John", "01/01/2000", "456 Main St",
+	            "5678", "Alice", "9876", "alice@gmail.com");
+
+	    workFlow testobj = new workFlow();
+	    testobj.addToWF(da.getFormNumber(), "Reviewer");
+
+	    assertEquals(1, testobj.getReviewStack().size());
+	    assertEquals(0, testobj.getApproveStack().size());
 	}
 	
 	/*
-	 * tests if the current status of the workflow is updated when workflow step is not finished and updateWf() is called 
+	 * Test adding a form to the approval stack
 	 */
 	@Test
-	public void updateWFTest2() {
-		
-		workFlow testobj = new workFlow("", null, null);
-		testobj.addToWF(123456789);
-		testobj.updateWF(123456789, "Data Entry", "complete");
-		testobj.updateWF(123456789, "Review", "not complete");
+	public void addToWFTest5() {   
+	    DependentAddition da = DependentAddition.dependentCreation("John", "01/01/2000", "456 Main St",
+	            "5678", "Alice", "9876", "alice@gmail.com");
 
-		assertEquals("Review", testobj.getCurrentStatus());
+	    workFlow testobj = new workFlow();
+	    testobj.addToWF(da.getFormNumber(), "Approval");
+
+	    assertEquals(0, testobj.getReviewStack().size());
+	    assertEquals(1, testobj.getApproveStack().size());
 	}
 	
 	/*
-	 * tests if getNextItem() returns the next dependentaddtion obj's id in the review or approve stack
+	 * tests if getNextItem() returns the next dependentaddtion obj's id in the review stack
 	 */
 	@Test
 	public void getNextItemTest1() {
 		
-        workFlow testobj = new workFlow("", null, null);
-		testobj.addToWF(123456789);
-		testobj.addToWF(486502193);
-		assertEquals(123, testobj.getNextItem());
+		DependentAddition da1 = DependentAddition.dependentCreation("Tom","09/03/2002","1234 Road",
+                "1234", "Mary","5678","mary@gmail.com");
+        workFlow testobj = new workFlow();
+		testobj.addToWF(da1.getFormNumber(), "Reviewer");
+		
+		//testobj.addToWF(486502193);
+		assertEquals(da1.getFormNumber(), testobj.getNextItem("Reviewer"));
 		
 	}
 	
@@ -110,10 +138,84 @@ class workFlowTest {
 	@Test
 	public void getNextItemTest2() {
 		
-        workFlow testobj = new workFlow("", null, null);
+        workFlow testobj = new workFlow();
         
-		assertTrue(testobj.getNextItem()== 0);
+    	assertTrue(testobj.getNextItem("Reviewer")== 0);
+		assertTrue(testobj.getNextItem("Approval")== 0);
 		
 	}
+	
+	/*
+	 * Test getting the next item from an empty review stack
+	 */
+	@Test
+	public void getNextItemTest3() {
+	    
+	    workFlow testobj = new workFlow();
+	    assertEquals(0, testobj.getNextItem("Reviewer"));
+	}
+	
+	/*
+	 * Test getting the next item from an empty approval stack
+	 */
+	@Test
+	public void getNextItemTest4() {
+	    
+	    workFlow testobj = new workFlow();
+	    assertEquals(0, testobj.getNextItem("Approval"));
+	}
+	/*
+	 * Test getting the next item from the approval stack
+	 */
+	@Test
+	public void getNextItemTest5() {
+	    
+	    workFlow testobj = new workFlow();
 
+	    DependentAddition da = DependentAddition.dependentCreation("John", "01/01/2000", "456 Main St",
+	            "5678", "Alice", "9876", "alice@gmail.com");
+
+	    testobj.addToWF(da.getFormNumber(), "Approval");
+
+	    assertEquals(da.getFormNumber(), testobj.getNextItem("Approval"));
+	    assertTrue(testobj.getApproveStack().isEmpty());
+	}
+	
+	/*
+	 * Test setting the review stack and then checking if it is properly set
+	 */
+	@Test
+	public void setReviewStackTest() {
+	    
+	    workFlow testobj = new workFlow();
+	    
+	    ArrayList<Integer> reviewStack = new ArrayList<>();
+	    reviewStack.add(123);
+	    reviewStack.add(456);
+
+	    testobj.setReviewStack(reviewStack);
+
+	    assertEquals(reviewStack, testobj.getReviewStack());
+	}
+
+	/*
+	 * Test setting the approve stack and then checking if it is properly set
+	 */
+	@Test
+	public void setApproveStackTest() {
+	    
+	    workFlow testobj = new workFlow();
+	    
+	    ArrayList<Integer> approveStack = new ArrayList<>();
+	    approveStack.add(789);
+	    approveStack.add(101);
+
+	    testobj.setApproveStack(approveStack);
+
+	    assertEquals(approveStack, testobj.getApproveStack());
+	}
+	
+	
+	
+	
 }
