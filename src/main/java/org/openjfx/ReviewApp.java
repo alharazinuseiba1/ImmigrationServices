@@ -44,7 +44,7 @@ public class ReviewApp {
 	
 	
 	/**
-	 * CODE IS SIMILAR TO THAT OF DATA ENTRY APP, AND WAS USED FROM DATA ENTRY BUT NOT COPY AND PASTED
+	 * CODE IS SIMILAR TO THAT OF DATA ENTRY APP, BUT NOT COPY AND PASTED
 	 * The start method will display the page that can be exited
 	 * will call all the textfield and button methods 
 	 */
@@ -103,7 +103,7 @@ public class ReviewApp {
     	Button back = new Button("Back");
     	GridPane.setConstraints(back, 0,62);
     	grid.getChildren().add(back);
-
+	//if there is no form to review
     	if(!(DependentAddition.wf.getReviewStack().isEmpty())) {
     		
     		//create title of form
@@ -123,7 +123,7 @@ public class ReviewApp {
         
         	grid.getChildren().add(dependentSection);
         	
-           //create applicant information section
+          	 //create applicant information section
         	Text appSection = new Text();
         	appSection.setText("Applicant's Information Section:");
         	GridPane.setConstraints(appSection, 20, 24);
@@ -154,13 +154,13 @@ public class ReviewApp {
  	   		//editButton(grid);
  	   		
  	   		//Defining the Edit button
- 	   		// creates option to edit the form if there is any formatting issues
+ 	   		//creates option to edit the form if there is any formatting issues
  	   		Button edit = new Button();
  	   		edit.setText("Edit Form");
  	   		edit.setTextFill(Color.BLACK);
  	   		GridPane.setConstraints(edit, 20,36);
  	   		grid.getChildren().add(edit);
- 	   		
+ 	   		//when edit button is pressed, the text fields will become editable
  	   		edit.setOnAction((ActionEvent e) -> {
  	   			for(int i = 0; i < grid.getChildren().size(); i++) {
     		
@@ -178,13 +178,13 @@ public class ReviewApp {
  	   		//submitButton(grid, value);
     	
     	
-    	
+    			//creates a submit button
  	   		Button submit = new Button();
  	   		submit.setText("Save & Submit Form");
     	
  	   		GridPane.setConstraints(submit, 21, 40);
  	   		grid.getChildren().add(submit);
-    	
+			//creates labels for the buttons like edit, submit, and the checkbox review
  	   		Label label = new Label();
  	   		GridPane.setConstraints(label, 21, 42);
  	   		GridPane.setColumnSpan(label, 2);
@@ -205,10 +205,10 @@ public class ReviewApp {
 			label3.setTextFill(Color.RED);
 			label3.setFont(Font.font("Verdana", FontWeight.MEDIUM, 13));
 			grid.getChildren().add(label3);
-		
+			//when submit button is clicked
  	   		submit.setOnAction((ActionEvent e) -> {
 
-			
+				//if the check box is not checked
  	   			if(value.isSelected() == false) {
     	    	
  	   				label2.setVisible(true);
@@ -216,9 +216,9 @@ public class ReviewApp {
  	   				label.setVisible(false);
 
  	   			}
-			
+				//if checkbox is checked
  	   			if(value.isSelected() == true) {
-    			  
+    			  		//updated the dependentAddtion object's class variables
  	   				b1.setAddress(addrField.getText());
  	   				b1.setDateOfBirth(dobField.getText());
  	   				b1.setAlienNum(alienNumField.getText());
@@ -226,7 +226,7 @@ public class ReviewApp {
  	   				b1.setApplicantName(appNameField.getText());
  	   				b1.setApplicantEmail(appEmailField.getText());
  	   				b1.setApplicantAlienNum(appAlienField.getText());
- 	   				
+ 	   				//if the edited data did not pass format validations
  	   				if(b1.validateDependent(b1)== false) {
  	   					
  	   					label.setVisible(false);
@@ -237,7 +237,7 @@ public class ReviewApp {
  	   					
  	   					
  	   				}
- 	   				
+ 	   				//if edited is valid, send to approval
  	   				else {
  	   					label3.setVisible(false);
  	   					label.setVisible(true);
@@ -249,7 +249,7 @@ public class ReviewApp {
 
  	   			}
  	   		});		
-		
+			//when back button is clicked
  	   		back.setOnAction((ActionEvent e) -> {
     		
  	   			App app = new App();
@@ -260,7 +260,7 @@ public class ReviewApp {
     	
 		
     	}  
-    	
+    	//if there is a form to review, open the review screen with the dependentAddition object
     	else if(DependentAddition.wf.getReviewStack().isEmpty()) {
     		
     		Label empty = new Label();
@@ -286,7 +286,7 @@ public class ReviewApp {
     
     
     /**
-	 * CODE IS SIMILAR TO THAT OF DATA ENTRY APP, AND WAS USED FROM DATA ENTRY BUT NOT COPY AND PASTED
+	 * CODE IS SIMILAR TO THAT OF DATA ENTRY APP, BUT NOT COPY AND PASTED
 	 * creates the field where the dependent's name can be inputed
 	*/
     public GridPane NameofDependent(GridPane grid) {
@@ -307,7 +307,7 @@ public class ReviewApp {
     }
     
     /**
-	 * CODE IS SIMILAR TO THAT OF DATA ENTRY APP, AND WAS USED FROM DATA ENTRY BUT NOT COPY AND PASTED
+	 * CODE IS SIMILAR TO THAT OF DATA ENTRY APP, BUT NOT COPY AND PASTED
 	 * creates the field where the dependent's DOB can be inputed
 	*/
    
@@ -331,7 +331,7 @@ public class ReviewApp {
     
     
     /**
-	 * CODE IS SIMILAR TO THAT OF DATA ENTRY APP, AND WAS USED FROM DATA ENTRY BUT NOT COPY AND PASTED
+	 * CODE IS SIMILAR TO THAT OF DATA ENTRY APP, BUT NOT COPY AND PASTED
 	 * creates the field where the dependent's address can be inputed
 	*/
     public GridPane dependentAddress(GridPane grid) {
@@ -351,7 +351,7 @@ public class ReviewApp {
     }
     
     /**
-	 * CODE IS SIMILAR TO THAT OF DATA ENTRY APP, AND WAS USED FROM DATA ENTRY BUT NOT COPY AND PASTED
+	 * CODE IS SIMILAR TO THAT OF DATA ENTRY APP, BUT NOT COPY AND PASTED
 	 * creates the field where the dependent's alien number can be inputed
 	*/
     public GridPane dependentAlien(GridPane grid) {
@@ -373,7 +373,7 @@ public class ReviewApp {
     
     
     /**
-	 * CODE IS SIMILAR TO THAT OF DATA ENTRY APP, AND WAS USED FROM DATA ENTRY BUT NOT COPY AND PASTED
+	 * CODE IS SIMILAR TO THAT OF DATA ENTRY APP, BUT NOT COPY AND PASTED
 	 * creates the field where the applicant's name can be inputed
 	*/
     public GridPane applicantName(GridPane grid) {
@@ -397,7 +397,7 @@ public class ReviewApp {
     
 
     /**
-	 * CODE IS SIMILAR TO THAT OF DATA ENTRY APP, AND WAS USED FROM DATA ENTRY BUT NOT COPY AND PASTED
+	 * CODE IS SIMILAR TO THAT OF DATA ENTRY APP, BUT NOT COPY AND PASTED
 	 * creates the field where the applicant's Alien number can be inputed
 	*/
     public GridPane applicantAlien(GridPane grid) {
@@ -424,7 +424,7 @@ public class ReviewApp {
     
    
     /**
-	 * CODE IS SIMILAR TO THAT OF DATA ENTRY APP, AND WAS USED FROM DATA ENTRY BUT NOT COPY AND PASTED
+	 * CODE IS SIMILAR TO THAT OF DATA ENTRY APP, BUT NOT COPY AND PASTED
 	 * creates the field where the applicant's email can be inputed
 	*/
     public GridPane applicantEmail(GridPane grid) {
