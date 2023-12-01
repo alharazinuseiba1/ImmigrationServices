@@ -5,6 +5,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -83,6 +85,37 @@ class workFlowTest {
 		assertEquals(2, obj.getApproveStack().size());
 	}
 	
+	
+	/*
+	 *  Test adding a form to the review stack
+	 */
+	@Test
+	public void addToWFTest4() {    
+	    DependentAddition da = DependentAddition.dependentCreation("John", "01/01/2000", "456 Main St",
+	            "5678", "Alice", "9876", "alice@gmail.com");
+
+	    workFlow testobj = new workFlow();
+	    testobj.addToWF(da.getFormNumber(), "Reviewer");
+
+	    assertEquals(1, testobj.getReviewStack().size());
+	    assertEquals(0, testobj.getApproveStack().size());
+	}
+	
+	/*
+	 * Test adding a form to the approval stack
+	 */
+	@Test
+	public void addToWFTest5() {   
+	    DependentAddition da = DependentAddition.dependentCreation("John", "01/01/2000", "456 Main St",
+	            "5678", "Alice", "9876", "alice@gmail.com");
+
+	    workFlow testobj = new workFlow();
+	    testobj.addToWF(da.getFormNumber(), "Approval");
+
+	    assertEquals(0, testobj.getReviewStack().size());
+	    assertEquals(1, testobj.getApproveStack().size());
+	}
+	
 	/*
 	 * tests if getNextItem() returns the next dependentaddtion obj's id in the review stack
 	 */
@@ -111,7 +144,76 @@ class workFlowTest {
 		assertTrue(testobj.getNextItem("Approval")== 0);
 		
 	}
+	
+	/*
+	 * Test getting the next item from an empty review stack
+	 */
+	@Test
+	public void getNextItemTest3() {
+	    
+	    workFlow testobj = new workFlow();
+	    assertEquals(0, testobj.getNextItem("Reviewer"));
+	}
+	
+	/*
+	 * Test getting the next item from an empty approval stack
+	 */
+	@Test
+	public void getNextItemTest4() {
+	    
+	    workFlow testobj = new workFlow();
+	    assertEquals(0, testobj.getNextItem("Approval"));
+	}
+	/*
+	 * Test getting the next item from the approval stack
+	 */
+	@Test
+	public void getNextItemTest5() {
+	    
+	    workFlow testobj = new workFlow();
 
+	    DependentAddition da = DependentAddition.dependentCreation("John", "01/01/2000", "456 Main St",
+	            "5678", "Alice", "9876", "alice@gmail.com");
+
+	    testobj.addToWF(da.getFormNumber(), "Approval");
+
+	    assertEquals(da.getFormNumber(), testobj.getNextItem("Approval"));
+	    assertTrue(testobj.getApproveStack().isEmpty());
+	}
+	
+	/*
+	 * Test setting the review stack and then checking if it is properly set
+	 */
+	@Test
+	public void setReviewStackTest() {
+	    
+	    workFlow testobj = new workFlow();
+	    
+	    ArrayList<Integer> reviewStack = new ArrayList<>();
+	    reviewStack.add(123);
+	    reviewStack.add(456);
+
+	    testobj.setReviewStack(reviewStack);
+
+	    assertEquals(reviewStack, testobj.getReviewStack());
+	}
+
+	/*
+	 * Test setting the approve stack and then checking if it is properly set
+	 */
+	@Test
+	public void setApproveStackTest() {
+	    
+	    workFlow testobj = new workFlow();
+	    
+	    ArrayList<Integer> approveStack = new ArrayList<>();
+	    approveStack.add(789);
+	    approveStack.add(101);
+
+	    testobj.setApproveStack(approveStack);
+
+	    assertEquals(approveStack, testobj.getApproveStack());
+	}
 	
 	
 	
