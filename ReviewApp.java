@@ -73,9 +73,8 @@ public class ReviewApp {
         stage.show();
         
         
-        
         //create title of form
-        Text heading = new Text();
+       /* Text heading = new Text();
         heading.setText("Dependent Addition Form:");
         GridPane.setConstraints(heading, 20 , 0);
     	heading.setFont(Font.font("Arial", FontWeight.BOLD, 30));
@@ -98,119 +97,190 @@ public class ReviewApp {
     	appSection.setFont(Font.font("Arial", FontWeight.BOLD, 15));
     
 
-    	grid.getChildren().add(appSection);
+    	grid.getChildren().add(appSection);*/
     	
     	//back button
     	Button back = new Button("Back");
     	GridPane.setConstraints(back, 0,62);
     	grid.getChildren().add(back);
 
-    	int formNum = DependentAddition.wf.getNextItem("Reviewer");
-    	System.out.println("Form num:" + formNum);
- 	   	b1 = DependentAddition.getDependentFromDB_FormNumber(formNum);
-    	//b1 = createDep();
-    	//methods are called to create textboxs to fill out personal info
-    	grid = NameofDependent(grid);
-    	grid = dependentDOB(grid);
-    	grid = dependentAddress(grid);
-    	grid = dependentAlien(grid);
-    	grid = applicantName(grid);
-    	grid = applicantAlien(grid);
-    	grid = applicantEmail(grid);
-    	
-    	
-    	
-    	
-    	
-    	//editButton(grid);
-    	
-    	//Defining the Edit button
-    	// creates option to edit the form if there is any formatting issues
-    	Button edit = new Button();
-    	edit.setText("Edit Form");
-    	edit.setTextFill(Color.BLACK);
-    	GridPane.setConstraints(edit, 20,36);
-    	grid.getChildren().add(edit);
-    	
-    	edit.setOnAction((ActionEvent e) -> {
-    		for(int i = 0; i < grid.getChildren().size(); i++) {
+    	if(!(DependentAddition.wf.getReviewStack().isEmpty())) {
     		
-    			if(grid.getChildren().get(i).getClass() == TextField.class) {
+    		//create title of form
+            Text heading = new Text();
+            heading.setText("Dependent Addition Form:");
+            GridPane.setConstraints(heading, 20 , 0);
+        	heading.setFont(Font.font("Arial", FontWeight.BOLD, 30));
+        	
+        	grid.getChildren().add(heading);
+        	
+        	//create dependent information section
+        	Text dependentSection = new Text();
+        	dependentSection.setText("Dependent's Information Section:");
+        	GridPane.setConstraints(dependentSection,20, 8);
+        	dependentSection.setFont(Font.font("Arial", FontWeight.BOLD, 15));
+
+        
+        	grid.getChildren().add(dependentSection);
+        	
+           //create applicant information section
+        	Text appSection = new Text();
+        	appSection.setText("Applicant's Information Section:");
+        	GridPane.setConstraints(appSection, 20, 24);
+        	appSection.setFont(Font.font("Arial", FontWeight.BOLD, 15));
+        
+
+        	grid.getChildren().add(appSection);
+    		
+    		int formNum = DependentAddition.wf.getNextItem("Reviewer");
+    		//System.out.println("Form num:" + formNum);
+ 	   		b1 = DependentAddition.getDependentFromDB_FormNumber(formNum);
+ 	   		//b1 = createDep();
+ 	   		
+ 	   	
+ 	   		//methods are called to create textboxs to fill out personal info
+ 	   		grid = NameofDependent(grid);
+ 	   		grid = dependentDOB(grid);
+ 	   		grid = dependentAddress(grid);
+ 	   		grid = dependentAlien(grid);
+ 	   		grid = applicantName(grid);
+ 	   		grid = applicantAlien(grid);
+ 	   		grid = applicantEmail(grid);
+    	
+    	
+    	
+    	
+    	
+ 	   		//editButton(grid);
+ 	   		
+ 	   		//Defining the Edit button
+ 	   		// creates option to edit the form if there is any formatting issues
+ 	   		Button edit = new Button();
+ 	   		edit.setText("Edit Form");
+ 	   		edit.setTextFill(Color.BLACK);
+ 	   		GridPane.setConstraints(edit, 20,36);
+ 	   		grid.getChildren().add(edit);
+ 	   		
+ 	   		edit.setOnAction((ActionEvent e) -> {
+ 	   			for(int i = 0; i < grid.getChildren().size(); i++) {
+    		
+ 	   				if(grid.getChildren().get(i).getClass() == TextField.class) {
     				
-    				TextField value = (TextField) grid.getChildren().get(i);
-    				 value.setEditable(true);
-    			}
-    		}
+ 	   					TextField value = (TextField) grid.getChildren().get(i);
+ 	   					value.setEditable(true);
+ 	   				}
+ 	   			}
     		    		
-    	});
+ 	   		});
     	
-    	//storing the checkbox value wether it was checked or not
-    	CheckBox value = reviewComplete(grid);
-    	//submitButton(grid, value);
+ 	   		//storing the checkbox value wether it was checked or not
+ 	   		CheckBox value = reviewComplete(grid);
+ 	   		//submitButton(grid, value);
     	
     	
     	
-    	Button submit = new Button();
-    	submit.setText("Save & Submit Form");
+ 	   		Button submit = new Button();
+ 	   		submit.setText("Save & Submit Form");
     	
-    	GridPane.setConstraints(submit, 21, 40);
-    	grid.getChildren().add(submit);
+ 	   		GridPane.setConstraints(submit, 21, 40);
+ 	   		grid.getChildren().add(submit);
     	
-    	Label label = new Label();
-		GridPane.setConstraints(label, 21, 42);
-		GridPane.setColumnSpan(label, 2);
-		label.setTextFill(Color.RED);
-		label.setFont(Font.font("Verdana", FontWeight.MEDIUM, 13));
-		grid.getChildren().add(label);
+ 	   		Label label = new Label();
+ 	   		GridPane.setConstraints(label, 21, 42);
+ 	   		GridPane.setColumnSpan(label, 2);
+ 	   		label.setTextFill(Color.RED);
+ 	   		label.setFont(Font.font("Verdana", FontWeight.MEDIUM, 13));
+ 	   		grid.getChildren().add(label);
 		
-		Label label2 = new Label();
-		GridPane.setConstraints(label2, 21, 38);
-		GridPane.setColumnSpan(label2, 2);
-		label2.setTextFill(Color.RED);
-		label2.setFont(Font.font("Verdana", FontWeight.MEDIUM, 13));
-		grid.getChildren().add(label2);
+ 	   		Label label2 = new Label();
+ 	   		GridPane.setConstraints(label2, 21, 38);
+ 	   		GridPane.setColumnSpan(label2, 2);
+ 	   		label2.setTextFill(Color.RED);
+ 	   		label2.setFont(Font.font("Verdana", FontWeight.MEDIUM, 13));
+ 	   		grid.getChildren().add(label2);
+ 	   		
+ 	   		Label label3 = new Label();
+ 	   		GridPane.setConstraints(label3, 21, 42);
+			GridPane.setColumnSpan(label3, 2);
+			label3.setTextFill(Color.RED);
+			label3.setFont(Font.font("Verdana", FontWeight.MEDIUM, 13));
+			grid.getChildren().add(label3);
 		
-		
-		submit.setOnAction((ActionEvent e) -> {
+ 	   		submit.setOnAction((ActionEvent e) -> {
 
 			
-			if(value.isSelected() == false) {
+ 	   			if(value.isSelected() == false) {
     	    	
-    			label2.setVisible(true);
-				label2.setText("Error: check box must be checked!");
-				label.setVisible(false);
+ 	   				label2.setVisible(true);
+ 	   				label2.setText("Error: check box must be checked!");
+ 	   				label.setVisible(false);
 
-			}
+ 	   			}
 			
-    		if(value.isSelected() == true) {
-    			
-    			b1.setAddress(addrField.getText());
-    		   	b1.setDateOfBirth(dobField.getText());
-    	   		b1.setAlienNum(alienNumField.getText());
-    	   		b1.setName(nameField.getText());
-    	   		b1.setApplicantName(appNameField.getText());
-    	   		b1.setApplicantEmail(appEmailField.getText());
-    	   		b1.setApplicantAlienNum(appAlienField.getText());
-    	   		
-    	   		label.setVisible(true);
-				label2.setVisible(false);
-    	   		label.setText("Form has been sent for Approval");
-    	   		DependentAddition.wf.addToWF(b1.getFormNumber(), "Approval");
-    		    //System.out.println("After Edit inside submit on action :" + b1.getDateOfBirth());
+ 	   			if(value.isSelected() == true) {
+    			  
+ 	   				b1.setAddress(addrField.getText());
+ 	   				b1.setDateOfBirth(dobField.getText());
+ 	   				b1.setAlienNum(alienNumField.getText());
+ 	   				b1.setName(nameField.getText());
+ 	   				b1.setApplicantName(appNameField.getText());
+ 	   				b1.setApplicantEmail(appEmailField.getText());
+ 	   				b1.setApplicantAlienNum(appAlienField.getText());
+ 	   				
+ 	   				if(b1.validateDependent(b1)== false) {
+ 	   					
+ 	   					label.setVisible(false);
+ 	   					
+ 	   					label3.setVisible(true);
+ 	   					
+ 	   					label3.setText("Error: updated information is invalid, please review again");
+ 	   					
+ 	   					
+ 	   				}
+ 	   				
+ 	   				else {
+ 	   					label3.setVisible(false);
+ 	   					label.setVisible(true);
+ 	   					label2.setVisible(false);
+ 	   					label.setText("Form has been sent for Approval");
+ 	   					DependentAddition.wf.addToWF(b1.getFormNumber(), "Approval");
+ 	   					//System.out.println("After Edit inside submit on action :" + b1.getDateOfBirth());
+ 	   				}
 
-    		}
-    	});		
+ 	   			}
+ 	   		});		
 		
-		back.setOnAction((ActionEvent e) -> {
+ 	   		back.setOnAction((ActionEvent e) -> {
     		
-        	App app = new App();
-			app.start(stage);
+ 	   			App app = new App();
+ 	   			app.start(stage);
     		
     	
-    	});
+ 	   		});
     	
 		
-		    	
+    	}  
+    	
+    	else if(DependentAddition.wf.getReviewStack().isEmpty()) {
+    		
+    		Label empty = new Label();
+ 	   		GridPane.setConstraints(empty, 0, 50);
+ 	   		empty.setTextFill(Color.RED);
+ 	   		empty.setFont(Font.font("Verdana", FontWeight.MEDIUM, 15));
+ 	   		grid.getChildren().add(empty);
+ 	   		empty.setText("Review stack is empty, there are no forms to be reviewed!");
+ 	   		
+ 	   		back.setOnAction((ActionEvent e) -> {
+    		
+	   			App app = new App();
+	   			app.start(stage);
+		
+	
+	   		});
+
+ 	   		
+ 	   		
+    	}
     	
     }
     
@@ -570,3 +640,6 @@ public class ReviewApp {
 	
 
 }
+	
+	
+
