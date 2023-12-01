@@ -230,11 +230,11 @@ public class ReviewApp {
  	   				if(b1.validateDependent(b1)== false) {
  	   					
  	   					label.setVisible(false);
- 	   					System.out.println("hi");
+ 	   					
  	   					label3.setVisible(true);
- 	   					System.out.println("hi2");
+ 	   					
  	   					label3.setText("Error: updated information is invalid, please review again");
- 	   					System.out.println("hi3");
+ 	   					
  	   					
  	   				}
  	   				
