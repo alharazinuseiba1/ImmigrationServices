@@ -1,4 +1,4 @@
-package org.openjfx.approver;
+package org.openjfx;
 
 import static org.junit.Assert.assertEquals;
 
